@@ -18,3 +18,4 @@ def webhook():
             return 'Wrong validation token'
 
     return Response()
+
