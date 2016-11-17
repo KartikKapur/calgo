@@ -1,1 +1,1 @@
-web: gunicorn bearmax_app:app --log-file -
+web: gunicorn calgo:app
