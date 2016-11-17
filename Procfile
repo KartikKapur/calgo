@@ -1,1 +1,1 @@
-web: gunicorn calgo:app
+web: gunicorn calgo_app:app
