@@ -12,7 +12,7 @@ app = Flask(__name__)
 @app.route('/webhook', methods=['GET', 'POST'])
 def webhook():
     if request.method == 'GET':
-        if request.args.get('hub.verify_token') == 'bear':
+        if request.args.get('hub.verify_token') == 'calgo':
             return request.args.get('hub.challenge')
         else:
             return 'Wrong validation token'
