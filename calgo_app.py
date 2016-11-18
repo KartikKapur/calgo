@@ -13,7 +13,7 @@ def verify():
     # when the endpoint is registered as a webhook, it must echo back
     # the 'hub.challenge' value it receives in the query arguments
     if request.args.get("hub.mode") == "subscribe" and request.args.get("hub.challenge"):
-        if not request.args.get("hub.verify_token") == os.environ["VERIFY_TOKEN"]:
+        if not request.args.get("hub.verify_token") == os.environ["EAAPmvnm2ZAaUBAIT1umWQ7ojdOZBFHb3N4atYctcL0y8mkbr1bxJAc3tzCJTTDt4nR8ClEONbRN3U9ZAfRggftdTkbD1ZCF8tFkvr3a4hsZCZBBxWoxqGNNaJNDpMAw1K9bzjWiM3vxJwQNLECopr2zZA0ADbBnR0fsebW244WP8AZDZD"]:
             return "Verification token mismatch", 403
         return request.args["hub.challenge"], 200
 
@@ -58,7 +58,7 @@ def send_message(recipient_id, message_text):
     log("sending message to {recipient}: {text}".format(recipient=recipient_id, text=message_text))
 
     params = {
-        "access_token": os.environ["PAGE_ACCESS_TOKEN"]
+        "access_token": os.environ["EAAPmvnm2ZAaUBAIT1umWQ7ojdOZBFHb3N4atYctcL0y8mkbr1bxJAc3tzCJTTDt4nR8ClEONbRN3U9ZAfRggftdTkbD1ZCF8tFkvr3a4hsZCZBBxWoxqGNNaJNDpMAw1K9bzjWiM3vxJwQNLECopr2zZA0ADbBnR0fsebW244WP8AZDZD"]
     }
     headers = {
         "Content-Type": "application/json"
