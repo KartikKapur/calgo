@@ -10,26 +10,27 @@ from pymongo import MongoClient
 
 
 
-FB_APP_TOKEN = 'EAAPmvnm2ZAaUBADCZCBCQL9tMkf7tLyVJxdezJeKPjwOa1uYsgcaK0eZCFiVOcoGhms5M7580ZCCXHAuZBczzdOmaeEjLgnMCoiyM9BwxmZCuqsXlSlmeOW8DnfLDq0CK23HTxBv44QGAjQYPUPBC1yRql66J2S80YEjSU7QZBHGAZDZD'
+
+FB_APP_TOKEN = 'EAAPmvnm2ZAaUBADXAmivZA2h4nvir7aPQIMqAfNGnmwiNpg0Ndz2wtZBPB3XlXqnSmaT7Y5KGGqhMzDVyq1nkb0ECmwXp8YOvC9nNIO3IoF3TWnR8SxRV5lDPoX5BZBgaV095NT0bNS1M03GwSPY41u8at9YfEm7hxpSSrtZAcQZDZD'
 FB_ENDPOINT = 'https://graph.facebook.com/v2.6/me/{0}'
 FB_MESSAGES_ENDPOINT = FB_ENDPOINT.format('messages')
 FB_THREAD_SETTINGS_ENDPOINT = FB_ENDPOINT.format('thread_settings')
-# MONGO_DB_BEARMAX_DATABASE = ' '
-# MONGO_DB_BEARMAX_ENDPOINT = ' '
-# MONGO_DB_BEARMAX_PORT = ''
-# MONGO_DB_USERNAME = ' '
-# MONGO_DB_PASSWORD = ' '
+MONGO_DB_BEARMAX_DATABASE = ' '
+MONGO_DB_BEARMAX_ENDPOINT = ' '
+MONGO_DB_BEARMAX_PORT = ''
+MONGO_DB_USERNAME = ' '
+MONGO_DB_PASSWORD = ' '
 
 app = Flask(__name__)
 def connect():
     connection = MongoClient(
-    #     MONGO_DB_BEARMAX_ENDPOINT,
-    #     MONGO_DB_BEARMAX_PORT
-    # )
-    # handle = connection[MONGO_DB_BEARMAX_DATABASE]
-    # handle.authenticate(
-    #     MONGO_DB_USERNAME,
-    #     MONGO_DB_PASSWORD
+        MONGO_DB_BEARMAX_ENDPOINT,
+        MONGO_DB_BEARMAX_PORT
+    )
+    handle = connection[MONGO_DB_BEARMAX_DATABASE]
+    handle.authenticate(
+        MONGO_DB_USERNAME,
+        MONGO_DB_PASSWORD
     )
     return handle
 
@@ -51,16 +52,15 @@ def webhook():
         for i in range(len(data)):
             event = data[i]
             if 'sender' in event:
+
                 print('Event: {0}'.format(event))
                 sender_id = event['sender']['id']
                 if 'message' in event and 'is_echo' in event['message'] and event['message']['is_echo']:
                     pass
-                else:
-                    send_FB_text(sender_id, 'Hello! I am Bearmax, your personal healthcare companion.')
-                    init_bot_user(sender_id)
+                elif handle.bot_users.find({'sender_id': sender_id}).count() == 0:
 
+                    send_FB_text(sender_id, '')
     return Response()
-
 
 def send_FB_message(sender_id, message):
     fb_response = requests.post(
@@ -79,18 +79,16 @@ def send_FB_message(sender_id, message):
     if not fb_response.ok:
         app.logger.warning('Not OK: {0}: {1}'.format(
             fb_response.status_code,
-            fb_response.text))
-
+            fb_response.text
+        ))
 def send_FB_text(sender_id, text, quick_replies=None):
     message = {'text': text}
     if quick_replies:
         message['quick_replies'] = quick_replies
     return send_FB_message(
         sender_id,
-        message)
-
-
-
+        message
+    )
 
 def send_FB_buttons(sender_id, text, buttons):
     return send_FB_message(
@@ -102,25 +100,11 @@ def send_FB_buttons(sender_id, text, buttons):
                     'template_type': 'button',
                     'text': text,
                     'buttons': buttons
-                }}})
-
-def init_bot_user(sender_id):
-    send_FB_text(
-        sender_id,
-        'Do you want to view your events or make one?',
-        quick_replies=[
-            {
-                'content_type': 'text',
-                'title': 'View',
-                'payload': ''
-            },
-            {
-                'content_type': 'text',
-                'title': 'Make',
-                'payload': 'Gender:make'
+                }
             }
-        ]
+        }
     )
+
 
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port=5000)
