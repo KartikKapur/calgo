@@ -1,43 +1,13 @@
+
+
 from flask import Flask
 from flask import request, redirect
 import json
 import requests
 import urllib
 from webob import Response
-import os
-import sys
-from pymongo import MongoClient
-
-
-
-
-FB_APP_TOKEN = 'EAAPmvnm2ZAaUBADXAmivZA2h4nvir7aPQIMqAfNGnmwiNpg0Ndz2wtZBPB3XlXqnSmaT7Y5KGGqhMzDVyq1nkb0ECmwXp8YOvC9nNIO3IoF3TWnR8SxRV5lDPoX5BZBgaV095NT0bNS1M03GwSPY41u8at9YfEm7hxpSSrtZAcQZDZD'
-FB_ENDPOINT = 'https://graph.facebook.com/v2.6/me/{0}'
-FB_MESSAGES_ENDPOINT = FB_ENDPOINT.format('messages')
-FB_THREAD_SETTINGS_ENDPOINT = FB_ENDPOINT.format('thread_settings')
-MONGO_DB_BEARMAX_DATABASE = ' '
-MONGO_DB_BEARMAX_ENDPOINT = ' '
-MONGO_DB_BEARMAX_PORT = ''
-MONGO_DB_USERNAME = ' '
-MONGO_DB_PASSWORD = ' '
 
 app = Flask(__name__)
-def connect():
-    connection = MongoClient(
-        MONGO_DB_BEARMAX_ENDPOINT,
-        MONGO_DB_BEARMAX_PORT
-    )
-    handle = connection[MONGO_DB_BEARMAX_DATABASE]
-    handle.authenticate(
-        MONGO_DB_USERNAME,
-        MONGO_DB_PASSWORD
-    )
-    return handle
-
-app = Flask(__name__)
-app.config['DEBUG'] = True
-handle = connect()
-
 
 @app.route('/')
 @app.route('/webhook', methods=['GET', 'POST'])
@@ -47,64 +17,5 @@ def webhook():
             return request.args.get('hub.challenge')
         else:
             return 'Wrong validation token'
-    elif request.method =='POST':
-        data = json.loads(request.data)['entry'][0]['messaging']
-        for i in range(len(data)):
-            event = data[i]
-            if 'sender' in event:
 
-                print('Event: {0}'.format(event))
-                sender_id = event['sender']['id']
-                if 'message' in event and 'is_echo' in event['message'] and event['message']['is_echo']:
-                    pass
-                elif handle.bot_users.find({'sender_id': sender_id}).count() == 0:
-
-                    send_FB_text(sender_id, '')
     return Response()
-
-def send_FB_message(sender_id, message):
-    fb_response = requests.post(
-        FB_MESSAGES_ENDPOINT,
-        params={'access_token': FB_APP_TOKEN},
-        data=json.dumps(
-            {
-                'recipient': {
-                    'id': sender_id
-                },
-                'message': message
-            }
-        ),
-        headers={'content-type': 'application/json'}
-    )
-    if not fb_response.ok:
-        app.logger.warning('Not OK: {0}: {1}'.format(
-            fb_response.status_code,
-            fb_response.text
-        ))
-def send_FB_text(sender_id, text, quick_replies=None):
-    message = {'text': text}
-    if quick_replies:
-        message['quick_replies'] = quick_replies
-    return send_FB_message(
-        sender_id,
-        message
-    )
-
-def send_FB_buttons(sender_id, text, buttons):
-    return send_FB_message(
-        sender_id,
-        {
-            'attachment': {
-                'type': 'template',
-                'payload': {
-                    'template_type': 'button',
-                    'text': text,
-                    'buttons': buttons
-                }
-            }
-        }
-    )
-
-
-if __name__ == '__main__':
-    app.run(host='0.0.0.0', port=5000)
