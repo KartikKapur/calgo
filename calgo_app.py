@@ -59,8 +59,9 @@ def webhook():
                     pass
                 elif handle.bot_users.find({'sender_id': sender_id}).count() == 0:
 
-                    send_FB_text(sender_id, '')
+                    send_FB_text(sender_id, 'Hello, would you like to add an event? ')
     return Response()
+
 
 def send_FB_message(sender_id, message):
     fb_response = requests.post(
@@ -79,16 +80,15 @@ def send_FB_message(sender_id, message):
     if not fb_response.ok:
         app.logger.warning('Not OK: {0}: {1}'.format(
             fb_response.status_code,
-            fb_response.text
-        ))
+            fb_response.text))
+
 def send_FB_text(sender_id, text, quick_replies=None):
     message = {'text': text}
     if quick_replies:
         message['quick_replies'] = quick_replies
     return send_FB_message(
         sender_id,
-        message
-    )
+        message)
 
 def send_FB_buttons(sender_id, text, buttons):
     return send_FB_message(
@@ -100,10 +100,7 @@ def send_FB_buttons(sender_id, text, buttons):
                     'template_type': 'button',
                     'text': text,
                     'buttons': buttons
-                }
-            }
-        }
-    )
+                }}})
 
 
 if __name__ == '__main__':
