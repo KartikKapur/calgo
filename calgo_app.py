@@ -37,8 +37,6 @@ app = Flask(__name__)
 app.config['DEBUG'] = True
 handle = connect()
 
-
-@app.route('/')
 @app.route('/webhook', methods=['GET', 'POST'])
 def webhook():
     if request.method == 'GET':
@@ -123,8 +121,7 @@ def init_bot_user(sender_id):
                 'title': 'Make',
                 'payload': 'Gender:make'
             }
-        ]
-    )
+        ])
 
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port=5000)
