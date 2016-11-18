@@ -109,7 +109,7 @@ def send_FB_buttons(sender_id, text, buttons):
 def init_bot_user(sender_id):
     send_FB_text(
         sender_id,
-        'Do you want to view your events or make one?'
+        'Do you want to view your events or make one?',
         quick_replies=[
             {
                 'content_type': 'text',
@@ -120,8 +120,6 @@ def init_bot_user(sender_id):
                 'content_type': 'text',
                 'title': 'Make',
                 'payload': 'Gender:make'
-            }
-        ])
-
+            }])
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port=5000)
