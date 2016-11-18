@@ -10,27 +10,26 @@ from pymongo import MongoClient
 
 
 
-
-FB_APP_TOKEN = 'EAAPmvnm2ZAaUBADXAmivZA2h4nvir7aPQIMqAfNGnmwiNpg0Ndz2wtZBPB3XlXqnSmaT7Y5KGGqhMzDVyq1nkb0ECmwXp8YOvC9nNIO3IoF3TWnR8SxRV5lDPoX5BZBgaV095NT0bNS1M03GwSPY41u8at9YfEm7hxpSSrtZAcQZDZD'
+FB_APP_TOKEN = 'EAAPmvnm2ZAaUBADCZCBCQL9tMkf7tLyVJxdezJeKPjwOa1uYsgcaK0eZCFiVOcoGhms5M7580ZCCXHAuZBczzdOmaeEjLgnMCoiyM9BwxmZCuqsXlSlmeOW8DnfLDq0CK23HTxBv44QGAjQYPUPBC1yRql66J2S80YEjSU7QZBHGAZDZD'
 FB_ENDPOINT = 'https://graph.facebook.com/v2.6/me/{0}'
 FB_MESSAGES_ENDPOINT = FB_ENDPOINT.format('messages')
 FB_THREAD_SETTINGS_ENDPOINT = FB_ENDPOINT.format('thread_settings')
-MONGO_DB_BEARMAX_DATABASE = ' '
-MONGO_DB_BEARMAX_ENDPOINT = ' '
-MONGO_DB_BEARMAX_PORT = ''
-MONGO_DB_USERNAME = ' '
-MONGO_DB_PASSWORD = ' '
+# MONGO_DB_BEARMAX_DATABASE = ' '
+# MONGO_DB_BEARMAX_ENDPOINT = ' '
+# MONGO_DB_BEARMAX_PORT = ''
+# MONGO_DB_USERNAME = ' '
+# MONGO_DB_PASSWORD = ' '
 
 app = Flask(__name__)
 def connect():
     connection = MongoClient(
-        MONGO_DB_BEARMAX_ENDPOINT,
-        MONGO_DB_BEARMAX_PORT
-    )
-    handle = connection[MONGO_DB_BEARMAX_DATABASE]
-    handle.authenticate(
-        MONGO_DB_USERNAME,
-        MONGO_DB_PASSWORD
+    #     MONGO_DB_BEARMAX_ENDPOINT,
+    #     MONGO_DB_BEARMAX_PORT
+    # )
+    # handle = connection[MONGO_DB_BEARMAX_DATABASE]
+    # handle.authenticate(
+    #     MONGO_DB_USERNAME,
+    #     MONGO_DB_PASSWORD
     )
     return handle
 
