@@ -51,14 +51,18 @@ def webhook():
         for i in range(len(data)):
             event = data[i]
             if 'sender' in event:
-
                 print('Event: {0}'.format(event))
                 sender_id = event['sender']['id']
                 if 'message' in event and 'is_echo' in event['message'] and event['message']['is_echo']:
                     pass
                 elif handle.bot_users.find({'sender_id': sender_id}).count() == 0:
+                    send_FB_text(sender_id, 'Hello! I am Bearmax, your personal healthcare companion.')
+                    init_bot_user(sender_id)
+                # else:
+                #     sender_id_matches = [x for x in handle.bot_users.find({'sender_id': sender_id})]
+                #     if sender_id_matches:
+                #
 
-                    send_FB_text(sender_id, 'Hello, would you like to add an event? ')
     return Response()
 
 
@@ -89,6 +93,9 @@ def send_FB_text(sender_id, text, quick_replies=None):
         sender_id,
         message)
 
+
+
+
 def send_FB_buttons(sender_id, text, buttons):
     return send_FB_message(
         sender_id,
@@ -101,6 +108,23 @@ def send_FB_buttons(sender_id, text, buttons):
                     'buttons': buttons
                 }}})
 
+def init_bot_user(sender_id):
+    send_FB_text(
+        sender_id,
+        'Do you want to view your events or make one?'
+        quick_replies=[
+            {
+                'content_type': 'text',
+                'title': 'View',
+                'payload': ''
+            },
+            {
+                'content_type': 'text',
+                'title': 'Make',
+                'payload': 'Gender:make'
+            }
+        ]
+    )
 
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port=5000)
