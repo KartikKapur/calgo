@@ -51,6 +51,7 @@ def webhook():
             if 'sender' in event:
                 print('Event: {0}'.format(event))
                 sender_id = event['sender']['id']
+                send_FB_message(sender_id, 'hi')
                 if 'message' in event and 'is_echo' in event['message'] and event['message']['is_echo']:
                     pass
                 else:
