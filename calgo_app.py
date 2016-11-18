@@ -17,16 +17,7 @@ def webhook():
         if request.args.get('hub.verify_token') == 'calgo':
             return request.args.get('hub.challenge')
         else:
-            data = json.loads(request.data)['entry'][0]['messaging']
-            for i in range(len(data)):
-                event = data[i]
-                if 'sender' in event:
-                    print('Event: {0}'.format(event))
-                    sender_id = event['sender']['id']
-                    if 'message' in event and 'is_echo' in event['message'] and event['message']['is_echo']:
-                        pass
-                    else:
-                        send_FB_text(sender_id, 'What can I do for you?')
+            return 'Wrong validation token'
     elif request.method == 'POST':
         data = json.loads(request.data)['entry'][0]['messaging']
         for i in range(len(data)):
