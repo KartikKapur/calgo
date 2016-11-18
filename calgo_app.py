@@ -12,13 +12,14 @@ FB_MESSAGES_ENDPOINT = FB_ENDPOINT.format('messages')
 
 @app.route('/')
 @app.route('/webhook', methods=['GET', 'POST'])
-def webhook():
+def verify():
     if request.method == 'GET':
         if request.args.get('hub.verify_token') == 'calgo':
             return request.args.get('hub.challenge')
         else:
             return 'Wrong validation token'
-    elif request.method == 'POST':
+def webhook():
+    if request.method == 'POST':
         data = json.loads(request.data)['entry'][0]['messaging']
         for i in range(len(data)):
             event = data[i]
