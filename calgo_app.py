@@ -10,7 +10,6 @@ FB_APP_TOKEN= 'EAAPmvnm2ZAaUBAG852TcAX8FTZCwgeAiHLr6E8VZBniT8OUuLcKaBCZBMLiMxHNh
 FB_ENDPOINT = 'https://graph.facebook.com/v2.6/me/{0}'
 FB_MESSAGES_ENDPOINT = FB_ENDPOINT.format('messages')
 
-@app.route('/')
 @app.route('/webhook', methods=['GET', 'POST'])
 def webhook():
     if request.method == 'GET':
