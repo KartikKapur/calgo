@@ -8,7 +8,7 @@ from pymongo import MongoClient
 app = Flask(__name__)
 app.config['DEBUG'] = True
 
-FB_APP_TOKEN= 'EAAPmvnm2ZAaUBAG852TcAX8FTZCwgeAiHLr6E8VZBniT8OUuLcKaBCZBMLiMxHNh5zQgKx7eOWMTCPyOGnJizZBi2qgyCwTxgqoY4nQeT6ljSFblqxvAyofd0VnY4iv296jIUGDZA7NlihX0h4pNeEvl57m2vrAVBnewCvi9l69AZDZD'
+FB_APP_TOKEN= 'EAAPmvnm2ZAaUBADs4pyOWyT0apRrZBpMuARbdt4AszSVS7caLGzKLViCXZBFI8ZC7y00KcItNuCgc0HmWwrUvTAuXyvxPZBZBbDJE5gBncZA0ZC9yQxWbMa1e3ZCwCXFq5mF2jNeVLxu1HF0HsjtNDcZBwbiEMO7KyRKtBcWdHvVUXlwZDZD'
 FB_ENDPOINT = 'https://graph.facebook.com/v2.6/me/{0}'
 FB_MESSAGES_ENDPOINT = FB_ENDPOINT.format('messages')
 FB_THREAD_SETTINGS_ENDPOINT = FB_ENDPOINT.format('thread_settings')
@@ -38,7 +38,6 @@ def connect():
 app = Flask(__name__)
 app.config['DEBUG'] = True
 handle = connect()
-
 
 @app.route('/')
 @app.route('/webhook', methods=['GET', 'POST'])
