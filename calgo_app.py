@@ -11,6 +11,7 @@ app.config['DEBUG'] = True
 FB_APP_TOKEN= 'EAAPmvnm2ZAaUBAG852TcAX8FTZCwgeAiHLr6E8VZBniT8OUuLcKaBCZBMLiMxHNh5zQgKx7eOWMTCPyOGnJizZBi2qgyCwTxgqoY4nQeT6ljSFblqxvAyofd0VnY4iv296jIUGDZA7NlihX0h4pNeEvl57m2vrAVBnewCvi9l69AZDZD'
 FB_ENDPOINT = 'https://graph.facebook.com/v2.6/me/{0}'
 FB_MESSAGES_ENDPOINT = FB_ENDPOINT.format('messages')
+FB_THREAD_SETTINGS_ENDPOINT = FB_ENDPOINT.format('thread_settings')
 
 @app.route('/')
 @app.route('/webhook', methods=['GET', 'POST'])
@@ -21,7 +22,7 @@ def verify():
         else:
             return 'Wrong validation token'
 def webhook():
-    if request.method !="GET":
+    if request.method == 'POST':
         data = json.loads(request.data)['entry'][0]['messaging']
         for i in range(len(data)):
             event = data[i]
