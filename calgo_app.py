@@ -4,7 +4,7 @@ import json
 import requests
 import urllib
 from webob import Response
-
+from pymongo import MongoClient
 app = Flask(__name__)
 app.config['DEBUG'] = True
 
@@ -12,6 +12,33 @@ FB_APP_TOKEN= 'EAAPmvnm2ZAaUBAG852TcAX8FTZCwgeAiHLr6E8VZBniT8OUuLcKaBCZBMLiMxHNh
 FB_ENDPOINT = 'https://graph.facebook.com/v2.6/me/{0}'
 FB_MESSAGES_ENDPOINT = FB_ENDPOINT.format('messages')
 FB_THREAD_SETTINGS_ENDPOINT = FB_ENDPOINT.format('thread_settings')
+
+
+MONGO_DB_BEARMAX_DATABASE = 'calgo'
+MONGO_DB_BEARMAX_ENDPOINT = 'ds019816.mlab.com'
+MONGO_DB_BEARMAX_PORT = 19816
+
+MONGO_DB_USERNAME = 'calgo'
+MONGO_DB_PASSWORD = 'goingplaces'
+
+
+def connect():
+    connection = MongoClient(
+        MONGO_DB_BEARMAX_ENDPOINT,
+        MONGO_DB_BEARMAX_PORT
+    )
+    handle = connection[MONGO_DB_BEARMAX_DATABASE]
+    handle.authenticate(
+        MONGO_DB_USERNAME,
+        MONGO_DB_PASSWORD
+    )
+    return handle
+
+
+app = Flask(__name__)
+app.config['DEBUG'] = True
+handle = connect()
+
 
 @app.route('/')
 @app.route('/webhook', methods=['GET', 'POST'])
