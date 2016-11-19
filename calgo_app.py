@@ -34,17 +34,14 @@ def connect():
     )
     return handle
 
-
 app = Flask(__name__)
-app.config['DEBUG'] = True
+app.config['DEBUG'] = False
 handle = connect()
 
-
-@app.route('/')
 @app.route('/webhook', methods=['GET', 'POST'])
 def webhook():
     if request.method == 'GET':
-        if request.args.get('hub.verify_token') == 'calgo':
+        if request.args.get('hub.verify_token') == 'bear':
             return request.args.get('hub.challenge')
         else:
             return 'Wrong validation token'
@@ -57,9 +54,9 @@ def webhook():
                 sender_id = event['sender']['id']
                 if 'message' in event and 'is_echo' in event['message'] and event['message']['is_echo']:
                     pass
-                else:
-                    send_FB_text(sender_id, 'What can I do for you?')
-    return Response()
+                elif handle.bot_users.find({'sender_id': sender_id}).count() == 0:
+                    send_FB_text(sender_id, 'Hello! I am Bearmax, your personal healthcare companion.')
+    return Response
 
 
 def send_FB_text(sender_id, text, quick_replies=None):
