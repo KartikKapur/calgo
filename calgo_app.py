@@ -35,7 +35,6 @@ def connect():
     return handle
 
 app = Flask(__name__)
-app.config['DEBUG'] = True
 handle = connect()
 
 @app.route('/webhook', methods=['GET', 'POST'])
