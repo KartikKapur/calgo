@@ -21,7 +21,7 @@ def verify():
         else:
             return 'Wrong validation token'
 def webhook():
-    if request.method == 'POST':
+    if request.method !="GET":
         data = json.loads(request.data)['entry'][0]['messaging']
         for i in range(len(data)):
             event = data[i]
@@ -33,7 +33,6 @@ def webhook():
                 else:
                     send_FB_text(sender_id, 'What can I do for you?')
     return Response()
-
 
 
 def send_FB_text(sender_id, text, quick_replies=None):
