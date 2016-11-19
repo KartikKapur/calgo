@@ -6,7 +6,6 @@ import urllib
 from webob import Response
 from pymongo import MongoClient
 app = Flask(__name__)
-app.config['DEBUG'] = True
 
 FB_APP_TOKEN= 'EAAPmvnm2ZAaUBAG852TcAX8FTZCwgeAiHLr6E8VZBniT8OUuLcKaBCZBMLiMxHNh5zQgKx7eOWMTCPyOGnJizZBi2qgyCwTxgqoY4nQeT6ljSFblqxvAyofd0VnY4iv296jIUGDZA7NlihX0h4pNeEvl57m2vrAVBnewCvi9l69AZDZD'
 FB_ENDPOINT = 'https://graph.facebook.com/v2.6/me/{0}'
