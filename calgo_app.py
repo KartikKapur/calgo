@@ -61,14 +61,11 @@ def webhook():
     return Response()
 
 
-def send_FB_text(sender_id, text, quick_replies=None):
+def send_FB_text(sender_id, text):
     message = {'text': text}
     # if quick_replies:
     #     message['quick_replies'] = quick_replies
-    return send_FB_message(
-        sender_id,
-        message
-    )
+    return send_FB_message(sender_id,message)
 
 def send_FB_message(sender_id, message):
     fb_response = requests.post(
