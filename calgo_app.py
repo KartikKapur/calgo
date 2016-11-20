@@ -6,7 +6,9 @@ import urllib
 from webob import Response
 from pymongo import MongoClient
 app = Flask(__name__)
+import sys
 app.config['DEBUG'] = True
+
 
 FB_APP_TOKEN= 'EAAPmvnm2ZAaUBABiID923tWjUnbxh7FgZCzLcCpHPZBEiLmOu98Yary2ZBJn2olkg6Kg8cLzbH02aIT1czTTAwvxkVt6P3ghz61mvwgfXgLlqi2vbQUAaS2ZAh2IF5bTmbwdiiV7has62AFpXZCKEsP6MbA5rhiTNg90yLVJZAw9wZDZD'
 FB_ENDPOINT = 'https://graph.facebook.com/v2.6/me/{0}'
@@ -42,6 +44,7 @@ handle = connect()
 @app.route('/')
 @app.route('/webhook', methods=['GET', 'POST'])
 def webhook():
+    log('kartik')
     if request.method == 'GET':
         if request.args.get('hub.verify_token') == 'Calgo':
             return request.args.get('hub.challenge')
@@ -49,6 +52,7 @@ def webhook():
             return 'Wrong validation token'
     elif request.method == 'POST':
         data = json.loads(request.data)['entry'][0]['messaging']
+        log(data)
         for i in range(len(data)):
             event = data[i]
             if 'sender' in event:
@@ -86,6 +90,8 @@ def send_FB_message(sender_id, message):
             fb_response.status_code,
             fb_response.text
         ))
-
+def log(message):
+    print(str(message))
+    sys.stdout.flush()
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port=5000)
