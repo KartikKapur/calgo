@@ -62,7 +62,7 @@ def webhook():
                     pass
                 elif handle.bot_users.find({'sender_id': sender_id}).count() == 0:
                     send_FB_text(sender_id, 'Hello, welcome to Calgo, would you like to make an event or view?')
-                    init_bot
+                    init_bot_user(sender_id)
     return Response()
 
 
