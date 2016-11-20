@@ -44,7 +44,6 @@ handle = connect()
 @app.route('/')
 @app.route('/webhook', methods=['GET', 'POST'])
 def webhook():
-    log('kartik')
     if request.method == 'GET':
         if request.args.get('hub.verify_token') == 'Calgo':
             return request.args.get('hub.challenge')
@@ -52,7 +51,6 @@ def webhook():
             return 'Wrong validation token'
     elif request.method == 'POST':
         data = json.loads(request.data)['entry'][0]['messaging']
-        log(data)
         for i in range(len(data)):
             event = data[i]
             if 'sender' in event:
@@ -91,19 +89,17 @@ def send_FB_message(sender_id, message):
             fb_response.status_code,
             fb_response.text
         ))
-def log(message):
-    print(str(message))
-    sys.stdout.flush()
-
 
 def init_bot_user(sender_id):
     quick_replies = [
             {'content_type': 'text',
              'title': 'Create',
+             'payload': 'do:Create'
             },
             {
                 'content_type': 'text',
-                'title': 'View',}]
+                'title': 'View',
+                'payload': 'do:View'}]
     send_FB_text(sender_id, quick_replies)
 
 def send_FB_buttons(sender_id, text, buttons):
