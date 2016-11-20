@@ -60,16 +60,16 @@ def webhook():
                 sender_id = event['sender']['id']
                 if 'message' in event and 'is_echo' in event['message'] and event['message']['is_echo']:
                     pass
-                elif handle.bot_users.find({'sender_id': sender_id}).count() == 0:
+                else:
                     send_FB_text(sender_id, 'Hello, welcome to Calgo, would you like to make an event or view?')
-    
+
     return Response()
 
 
-def send_FB_text(sender_id, text):
+def send_FB_text(sender_id, text, quick_replies=None):
     message = {'text': text}
-    # if quick_replies:
-    #     message['quick_replies'] = quick_replies
+    if quick_replies:
+        message['quick_replies'] = quick_replies
     return send_FB_message(sender_id,message)
 
 def send_FB_message(sender_id, message):
