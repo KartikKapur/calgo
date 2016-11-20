@@ -8,7 +8,7 @@ from pymongo import MongoClient
 app = Flask(__name__)
 app.config['DEBUG'] = True
 
-FB_APP_TOKEN= 'EAAPmvnm2ZAaUBADs4pyOWyT0apRrZBpMuARbdt4AszSVS7caLGzKLViCXZBFI8ZC7y00KcItNuCgc0HmWwrUvTAuXyvxPZBZBbDJE5gBncZA0ZC9yQxWbMa1e3ZCwCXFq5mF2jNeVLxu1HF0HsjtNDcZBwbiEMO7KyRKtBcWdHvVUXlwZDZD'
+FB_APP_TOKEN= 'EAAPmvnm2ZAaUBABiID923tWjUnbxh7FgZCzLcCpHPZBEiLmOu98Yary2ZBJn2olkg6Kg8cLzbH02aIT1czTTAwvxkVt6P3ghz61mvwgfXgLlqi2vbQUAaS2ZAh2IF5bTmbwdiiV7has62AFpXZCKEsP6MbA5rhiTNg90yLVJZAw9wZDZD'
 FB_ENDPOINT = 'https://graph.facebook.com/v2.6/me/{0}'
 FB_MESSAGES_ENDPOINT = FB_ENDPOINT.format('messages')
 FB_THREAD_SETTINGS_ENDPOINT = FB_ENDPOINT.format('thread_settings')
@@ -86,3 +86,6 @@ def send_FB_message(sender_id, message):
             fb_response.status_code,
             fb_response.text
         ))
+
+if __name__ == '__main__':
+    app.run(host='0.0.0.0', port=5000)
