@@ -60,8 +60,9 @@ def webhook():
                 sender_id = event['sender']['id']
                 if 'message' in event and 'is_echo' in event['message'] and event['message']['is_echo']:
                     pass
-                else:
-                    send_FB_text(sender_id, 'What can I do for you?')
+                elif handle.bot_users.find({'sender_id': sender_id}).count() == 0:
+                    send_FB_text(sender_id, 'Hello, welcome to Calgo, would you like to make an event or view?')
+                    init_bot
     return Response()
 
 
@@ -93,5 +94,33 @@ def send_FB_message(sender_id, message):
 def log(message):
     print(str(message))
     sys.stdout.flush()
+
+
+def init_bot_user(sender_id):
+    send_FB_text(
+        sender_id,
+        'Would you like to view your events or create one?',
+        quick_replies=[
+            {
+                'content_type': 'text',
+                'title': 'Create',
+            },
+            {
+                'content_type': 'text',
+                'title': 'View',
+            }
+        ]
+    )
+
+def send_FB_buttons(sender_id, text, buttons):
+    return send_FB_message(
+        sender_id,
+        {'attachment': {
+                'type': 'template',
+                'payload': {
+                    'template_type': 'button',
+                    'text': text,
+                    'buttons': buttons}}})
+
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port=5000)
