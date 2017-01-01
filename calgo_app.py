@@ -64,6 +64,18 @@ def webhook():
     return Response()
 
 
+def handle_event(event, bot_user):
+    if 'message' in event and 'text' in event['message']:
+        message = event['message']['text']
+        print('Message: {0}'.format(message))
+        if 'quick_reply' in event['message']:
+            handle_quick_replies(event['message']['quick_reply']['payload'],bot_user)
+
+
+def handle_quick_replies(payload, bot_user):
+    print('Payload: {0}'.format(payload))
+    if 'View:' in payload:
+
 def send_FB_text(sender_id, text, quick_replies=None):
     message = {'text': text}
     if quick_replies:
