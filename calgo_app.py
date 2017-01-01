@@ -104,16 +104,25 @@ def send_FB_message(sender_id, message):
         ))
 
 def init_bot_user(sender_id):
-    quick_replies = [
-            {'content_type': 'text',
-             'title': 'Create',
-             'payload': 'do:Create'
+    send_FB_text(
+        sender_id,
+        'What is your gender?',
+        quick_replies=[
+            {
+                'content_type': 'text',
+                'title': 'Create',
+                'payload': 'do:Create'
             },
             {
                 'content_type': 'text',
                 'title': 'View',
-                'payload': 'do:View'}]
-    send_FB_text(sender_id, quick_replies)
+                'payload': 'do:View'
+            }
+        ]
+    )
+    handle.bot_users.insert({
+        'sender_id': sender_id,
+        })
 
 def send_FB_buttons(sender_id, text, buttons):
     return send_FB_message(
