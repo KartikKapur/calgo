@@ -112,7 +112,8 @@ def send_FB_message(sender_id, message):
         ))
 
 def init_bot_user(sender_id):
-    send_FB_text(sender_id, get_credentials())
+    # send_FB_text(sender_id, get_credentials())
+    #Currently an error in getting the credentials will be working on it soon 
     send_FB_text(
         sender_id,
         'Would you like to view an event or create one? ',
