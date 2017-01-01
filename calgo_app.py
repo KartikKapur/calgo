@@ -59,7 +59,8 @@ def webhook():
                 sender_id = event['sender']['id']
                 if 'message' in event and 'is_echo' in event['message'] and event['message']['is_echo']:
                     pass
-                elif handle.bot_users.find({'sender_id': sender_id}).count() == 0:
+                #  else handle.bot_users.find({'sender_id': sender_id}).count() == 0:
+                else:
                     send_FB_text(sender_id, 'Hello, welcome to Calgo, you personal calender on messenger')
                     get_credentials()
                     init_bot_user(sender_id)
