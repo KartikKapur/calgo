@@ -60,6 +60,7 @@ def webhook():
                     pass
                 else:
                     send_FB_text(sender_id, 'Hello, welcome to Calgo, would you like to make an event or view?')
+                    init_bot_user(sender_id)
 
     return Response()
 
