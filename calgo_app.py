@@ -2,6 +2,7 @@ from flask import Flask
 from flask import request, redirect
 import json
 import requests
+from quickstart import *
 import urllib
 from webob import Response
 from pymongo import MongoClient
@@ -58,10 +59,15 @@ def webhook():
                 sender_id = event['sender']['id']
                 if 'message' in event and 'is_echo' in event['message'] and event['message']['is_echo']:
                     pass
-                else:
+                elif handle.bot_users.find({'sender_id': sender_id}).count() == 0:
                     send_FB_text(sender_id, 'Hello, welcome to Calgo, you personal calender on messenger')
+                    get_credentials()
                     init_bot_user(sender_id)
-
+                else:
+                    sender_id_matches = [x for x in handle.bot_users.find({'sender_id': sender_id})]
+                    if sender_id_matches:
+                        bot_user = sender_id_matches[0]
+                        handle_event(event,bot_user)
     return Response()
 
 
@@ -69,6 +75,9 @@ def handle_event(event, bot_user):
     if 'message' in event and 'text' in event['message']:
         message = event['message']['text']
         print('Message: {0}'.format(message))
+        if message.isdigit():
+            date = int(message)
+
         if 'quick_reply' in event['message']:
             handle_quick_replies(event['message']['quick_reply']['payload'],bot_user)
 
@@ -133,6 +142,7 @@ def send_FB_buttons(sender_id, text, buttons):
                     'template_type': 'button',
                     'text': text,
                     'buttons': buttons}}})
+
 
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port=5000)
