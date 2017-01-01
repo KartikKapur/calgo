@@ -59,7 +59,7 @@ def webhook():
                 if 'message' in event and 'is_echo' in event['message'] and event['message']['is_echo']:
                     pass
                 else:
-                    send_FB_text(sender_id, 'Hello, welcome to Calgo, would you like to make an event or view?')
+                    send_FB_text(sender_id, 'Hello, welcome to Calgo, you personal calender on messenger')
                     init_bot_user(sender_id)
 
     return Response()
@@ -106,7 +106,7 @@ def send_FB_message(sender_id, message):
 def init_bot_user(sender_id):
     send_FB_text(
         sender_id,
-        'What is your gender?',
+        'Would you like to view an event or create one? ',
         quick_replies=[
             {
                 'content_type': 'text',
