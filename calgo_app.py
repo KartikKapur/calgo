@@ -63,11 +63,11 @@ def webhook():
                     send_FB_text(sender_id, 'Hello, welcome to Calgo, you personal calender on messenger')
                     get_credentials()
                     init_bot_user(sender_id)
-                else:
-                    sender_id_matches = [x for x in handle.bot_users.find({'sender_id': sender_id})]
-                    if sender_id_matches:
-                        bot_user = sender_id_matches[0]
-                        handle_event(event,bot_user)
+                # else:
+                #     sender_id_matches = [x for x in handle.bot_users.find({'sender_id': sender_id})]
+                #     if sender_id_matches:
+                #         bot_user = sender_id_matches[0]
+                #         handle_event(event,bot_user)
     return Response()
 
 
