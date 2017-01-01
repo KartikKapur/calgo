@@ -4,7 +4,6 @@ import json
 import requests
 import urllib
 from webob import Response
-from quickstart import *
 from pymongo import MongoClient
 app = Flask(__name__)
 import sys
@@ -62,6 +61,7 @@ def webhook():
                 else:
                     send_FB_text(sender_id, 'Hello, welcome to Calgo, you personal calender on messenger')
                     init_bot_user(sender_id)
+
     return Response()
                 # else:
                 #     sender_id_matches = [x for x in handle.bot_users.find({'sender_id': sender_id})]
@@ -76,7 +76,6 @@ def handle_event(event, bot_user):
         print('Message: {0}'.format(message))
         if message.isdigit():
             date = int(message)
-
         if 'quick_reply' in event['message']:
             handle_quick_replies(event['message']['quick_reply']['payload'],bot_user)
 
@@ -113,10 +112,10 @@ def send_FB_message(sender_id, message):
 
 def init_bot_user(sender_id):
     # send_FB_text(sender_id, get_credentials())
-    #Currently an error in getting the credentials will be working on it soon 
+    #Currently an error in getting the credentials will be working on it soon
     send_FB_text(
         sender_id,
-        'Would you like to view an event or create one? ',
+        'Would you like to view an event or create one?',
         quick_replies=[
             {
                 'content_type': 'text',
