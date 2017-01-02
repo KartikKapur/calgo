@@ -35,8 +35,7 @@ def get_credentials():
     # credential_dir = os.path.join(home_dir, '.credentials')
     # if not os.path.exists(credential_dir):
     #     os.makedirs(credential_dir)
-    credential_path = os.path.join(
-                                   'calgocredential.json')
+    credential_path = os.path.join('calgocredential.json')
 
     store = Storage(credential_path)
     credentials = store.get()
