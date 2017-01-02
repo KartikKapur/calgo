@@ -3,7 +3,6 @@ from flask import request, redirect
 import json
 import requests
 import urllib
-from quickstart import *
 from webob import Response
 from pymongo import MongoClient
 app = Flask(__name__)
@@ -111,13 +110,16 @@ def send_FB_message(sender_id, message):
             fb_response.status_code,
             fb_response.text
         ))
-def init_login(sender_id):
-    send_FB_text(sender_id,'Press to login',
-                 quick_replies=[{
-                     'content_type': 'text',
-                     'title': 'Login',
-                     'payload': 'Login'
-                 }])
+# def init_login(sender_id):
+#     send_FB_text(sender_id,'Press to login',
+#                  quick_replies=[
+#                      {
+#                      'content_type': 'text',
+#                      'title': 'Login',
+#                      'payload': 'Login'
+#                  }
+#                  ]
+#                  )
 
 def init_bot_user(sender_id):
     # send_FB_text(sender_id, get_credentials())
