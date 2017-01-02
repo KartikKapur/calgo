@@ -3,6 +3,7 @@ from flask import request, redirect
 import json
 import requests
 import urllib
+from quickstart import *
 from webob import Response
 from pymongo import MongoClient
 app = Flask(__name__)
@@ -60,6 +61,7 @@ def webhook():
                     pass
                 else:
                     send_FB_text(sender_id, 'Hello, welcome to Calgo, you personal calender on messenger')
+                    init_login(sender_id)
                     init_bot_user(sender_id)
 
     return Response()
@@ -109,6 +111,13 @@ def send_FB_message(sender_id, message):
             fb_response.status_code,
             fb_response.text
         ))
+def init_login(sender_id):
+    send_FB_text(sender_id,
+                 quick_replies=[{
+                     'content_type': 'text',
+                     'title': 'Login',
+                     'payload': 'Login'
+                 }])
 
 def init_bot_user(sender_id):
     # send_FB_text(sender_id, get_credentials())
@@ -125,7 +134,7 @@ def init_bot_user(sender_id):
             {
                 'content_type': 'text',
                 'title': 'View',
-                'payload': 'do:View'
+                'payload': 'View'
             }
         ]
     )
