@@ -1,1 +1,1 @@
-web: gunicorn calgo_app:app --log-file=-
+web: gunicorn calgo_app:app --log-file=./log
