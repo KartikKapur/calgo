@@ -61,7 +61,7 @@ def webhook():
                     pass
                 else:
                     send_FB_text(sender_id, 'Hello, welcome to Calgo, you personal calender on messenger')
-                    init_login(sender_id)
+                    # init_login(sender_id)
                     init_bot_user(sender_id)
 
     return Response()
