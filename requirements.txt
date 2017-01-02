@@ -5,3 +5,4 @@ webob==1.6.1
 watson-developer-cloud==0.22.0
 pymongo==3.2.2
 google-api-python-client==1.5.5
+oauth2client==2.0
