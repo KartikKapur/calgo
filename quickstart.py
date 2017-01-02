@@ -12,6 +12,7 @@ import datetime
 try:
     import argparse
     flags = argparse.ArgumentParser(parents=[tools.argparser]).parse_args()
+    flags = None
 except ImportError:
     flags = None
 
@@ -45,8 +46,8 @@ def get_credentials():
         flow.user_agent = APPLICATION_NAME
         if flags:
             credentials = tools.run_flow(flow, store, flags)
-        # else: # Needed only for compatibility with Python 2.6
-        #     credentials = tools.run(flow, store)
+        else: # Needed only for compatibility with Python 2.6
+            credentials = tools.run(flow, store)
         print('Storing credentials to ' + credential_path)
     return credentials
 
