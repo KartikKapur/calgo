@@ -112,7 +112,7 @@ def send_FB_message(sender_id, message):
             fb_response.text
         ))
 def init_login(sender_id):
-    send_FB_text(sender_id,
+    send_FB_text(sender_id,'Press to login',
                  quick_replies=[{
                      'content_type': 'text',
                      'title': 'Login',
