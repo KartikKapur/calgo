@@ -32,10 +32,10 @@ def get_credentials():
         Credentials, the obtained credential.
     """
     home_dir = os.path.expanduser('./')
-    credential_dir = os.path.join(home_dir, '.credentials')
-    if not os.path.exists(credential_dir):
-        os.makedirs(credential_dir)
-    credential_path = os.path.join(credential_dir,
+    # credential_dir = os.path.join(home_dir, '.credentials')
+    # if not os.path.exists(credential_dir):
+    #     os.makedirs(credential_dir)
+    credential_path = os.path.join(
                                    'calgocredential.json')
 
     store = Storage(credential_path)
