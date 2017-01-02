@@ -4,4 +4,4 @@ requests==2.10.0
 webob==1.6.1
 watson-developer-cloud==0.22.0
 pymongo==3.2.2
-google-api-python-client=1.5.5
+google-api-python-client==1.5.5
