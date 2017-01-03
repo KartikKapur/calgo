@@ -2,7 +2,7 @@ from flask import Flask
 from flask import request, redirect
 import json
 import requests
-# from quickstart import get_credentials
+from quickstart import get_credentials
 import urllib
 from webob import Response
 from pymongo import MongoClient
