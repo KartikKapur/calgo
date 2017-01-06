@@ -1,7 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="bd98c817-bd78-48de-ad24-240ff78a96a1" name="Default" comment="" />
+    <list default="true" id="bd98c817-bd78-48de-ad24-240ff78a96a1" name="Default" comment="">
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
+    </list>
     <ignored path="calgo.iws" />
     <ignored path=".idea/workspace.xml" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -23,8 +25,8 @@
       <file leaf-file-name="quickstart1.py" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/quickstart1.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="90">
-              <caret line="20" column="24" lean-forward="true" selection-start-line="20" selection-start-column="24" selection-end-line="20" selection-end-column="37" />
+            <state relative-caret-position="540">
+              <caret line="37" column="35" lean-forward="true" selection-start-line="37" selection-start-column="35" selection-end-line="37" selection-end-column="35" />
               <folding>
                 <element signature="e#0#37#0" expanded="true" />
               </folding>
@@ -87,8 +89,8 @@
         <option value="$PROJECT_DIR$/requirements.txt" />
         <option value="$PROJECT_DIR$/Procfile" />
         <option value="$PROJECT_DIR$/quickstart.py" />
-        <option value="$PROJECT_DIR$/quickstart1.py" />
         <option value="$PROJECT_DIR$/calgo_app.py" />
+        <option value="$PROJECT_DIR$/quickstart1.py" />
       </list>
     </option>
   </component>
@@ -486,8 +488,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/quickstart1.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="90">
-          <caret line="20" column="24" lean-forward="true" selection-start-line="20" selection-start-column="24" selection-end-line="20" selection-end-column="37" />
+        <state relative-caret-position="540">
+          <caret line="37" column="35" lean-forward="true" selection-start-line="37" selection-start-column="35" selection-end-line="37" selection-end-column="35" />
           <folding>
             <element signature="e#0#37#0" expanded="true" />
           </folding>
