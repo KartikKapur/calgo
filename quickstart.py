@@ -51,12 +51,13 @@ def get_credentials():
         if flags:
             credentials = tools.run_flow(flow, store, flags)
             print('step4')
-            http = httplib2.Http()
-            http = credentials.authorize(http)
-            return build('calendar', 'v3', http=http)
+
         else: # Needed only for compatibility with Python 2.6
             credentials = tools.run(flow, store)
         print('Storing credentials to ' + credential_path)
+        http = httplib2.Http()
+        http = credentials.authorize(http)
+        return build('calendar', 'v3', http=http)
     return credentials
 
 def main():
