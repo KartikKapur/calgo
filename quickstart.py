@@ -84,5 +84,5 @@ def main():
         print(start, event['summary'])
 
 
-if __name__ == '__main__':
-    main()
+# if __name__ == '__main__':
+#     main()
