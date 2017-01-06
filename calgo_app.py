@@ -84,7 +84,10 @@ def handle_event(event, bot_user):
 
 def handle_quick_replies(payload, bot_user):
     print('Payload: {0}'.format(payload))
-    # if 'View:' in payload:
+    # if 'Create' in payload:
+
+
+
 
 def send_FB_text(sender_id, text, quick_replies=None):
     message = {'text': text}
