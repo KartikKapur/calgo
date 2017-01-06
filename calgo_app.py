@@ -2,13 +2,22 @@ from flask import Flask
 from flask import request, redirect
 import json
 import requests
-from quickstart1 import get_credentials
 import urllib
 from webob import Response
 from pymongo import MongoClient
 app = Flask(__name__)
 import sys
 app.config['DEBUG'] = True
+from __future__ import print_function
+import httplib2
+import os
+
+from apiclient import discovery
+from oauth2client import client
+from oauth2client import tools
+from oauth2client.file import Storage
+
+import datetime
 
 
 FB_APP_TOKEN= 'EAAPmvnm2ZAaUBABiID923tWjUnbxh7FgZCzLcCpHPZBEiLmOu98Yary2ZBJn2olkg6Kg8cLzbH02aIT1czTTAwvxkVt6P3ghz61mvwgfXgLlqi2vbQUAaS2ZAh2IF5bTmbwdiiV7has62AFpXZCKEsP6MbA5rhiTNg90yLVJZAw9wZDZD'
@@ -158,6 +167,50 @@ def send_FB_buttons(sender_id, text, buttons):
                     'text': text,
                     'buttons': buttons}}})
 
+
+
+try:
+    import argparse
+    flags = argparse.ArgumentParser(parents=[tools.argparser]).parse_args()
+except ImportError:
+    flags = None
+
+# If modifying these scopes, delete your previously saved credentials
+# at ~/.credentials/calendar-python-quickstart.json
+SCOPES = 'https://www.googleapis.com/auth/calendar'
+CLIENT_SECRET_FILE = './calgoClientId.json'
+APPLICATION_NAME = 'Google Calendar API Python Quickstart'
+
+
+def get_credentials():
+    """Gets valid user credentials from storage.
+
+    If nothing has been stored, or if the stored credentials are invalid,
+    the OAuth2 flow is completed to obtain the new credentials.
+
+    Returns:
+        Credentials, the obtained credential.
+    """
+    print('step1')
+    home_dir = os.path.expanduser('~')
+    credential_dir = os.path.join(home_dir, '.credentials')
+    if not os.path.exists(credential_dir):
+        os.makedirs(credential_dir)
+    credential_path = os.path.join('./','calendar-python-quickstart.json')
+    print('step2')
+    store = Storage(credential_path)
+    credentials = store.get()
+    print('step3')
+    if not credentials or credentials.invalid:
+        flow = client.flow_from_clientsecrets(CLIENT_SECRET_FILE, SCOPES)
+        flow.user_agent = APPLICATION_NAME
+        if flags:
+            credentials = tools.run_flow(flow, store, flags)
+            print('step4')
+        else: # Needed only for compatibility with Python 2.6
+            credentials = tools.run(flow, store)
+        print('Storing credentials to ' + credential_path)
+    return credentials
 
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port=5000)
