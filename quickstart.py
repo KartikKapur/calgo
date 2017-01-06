@@ -5,6 +5,11 @@ from apiclient import discovery
 from oauth2client import client
 from oauth2client import tools
 from oauth2client.file import Storage
+from oauth2client.client import OAuth2WebServerFlow
+from oauth2client.client import AccessTokenRefreshError
+from oauth2client.tools import *
+from googleapiclient.discovery import build
+
 
 import datetime
 
@@ -46,6 +51,9 @@ def get_credentials():
         if flags:
             credentials = tools.run_flow(flow, store, flags)
             print('step4')
+            http = httplib2.Http()
+            http = credentials.authorize(http)
+            return build('calendar', 'v3', http=http)
         else: # Needed only for compatibility with Python 2.6
             credentials = tools.run(flow, store)
         print('Storing credentials to ' + credential_path)
