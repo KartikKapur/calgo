@@ -55,10 +55,10 @@ def get_credentials():
         else: # Needed only for compatibility with Python 2.6
             credentials = tools.run(flow, store)
         print('Storing credentials to ' + credential_path)
-        http = httplib2.Http()
-        http = credentials.authorize(http)
-        return build('calendar', 'v3', http=http)
-    return credentials
+    http = httplib2.Http()
+    http = credentials.authorize(http)
+    return build('calendar', 'v3', http=http)
+    # return credentials
 
 def main():
     """Shows basic usage of the Google Calendar API.
