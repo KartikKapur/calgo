@@ -12,12 +12,12 @@ from googleapiclient.discovery import build
 
 
 import datetime
-#
+
 # try:
 #     import argparse
 #     flags = argparse.ArgumentParser(parents=[tools.argparser]).parse_args()
 # except ImportError:
-#     flags = None
+flags = None
 
 # If modifying these scopes, delete your previously saved credentials
 # at ~/.credentials/calendar-python-quickstart.json
@@ -57,32 +57,32 @@ def get_credentials():
         print('Storing credentials to ' + credential_path)
     http = httplib2.Http()
     http = credentials.authorize(http)
-    return build('calendar', 'v3', http=http)
+    return discovery.build('calendar', 'v3', http=http)
     # return credentials
 
-# def main():
-#     """Shows basic usage of the Google Calendar API.
-#
-#     Creates a Google Calendar API service object and outputs a list of the next
-#     10 events on the user's calendar.
-#     """
-#     credentials = get_credentials()
-#     http = credentials.authorize(httplib2.Http())
-#     service = discovery.build('calendar', 'v3', http=http)
-#
-#     now = datetime.datetime.utcnow().isoformat() + 'Z' # 'Z' indicates UTC time
-#     print('Getting the upcoming 10 events')
-#     eventsResult = service.events().list(
-#         calendarId='primary', timeMin=now, maxResults=10, singleEvents=True,
-#         orderBy='startTime').execute()
-#     events = eventsResult.get('items', [])
-#
-#     if not events:
-#         print('No upcoming events found.')
-#     for event in events:
-#         start = event['start'].get('dateTime', event['start'].get('date'))
-#         print(start, event['summary'])
+def main():
+    """Shows basic usage of the Google Calendar API.
+
+    Creates a Google Calendar API service object and outputs a list of the next
+    10 events on the user's calendar.
+    """
+    credentials = get_credentials()
+    http = credentials.authorize(httplib2.Http())
+    service = discovery.build('calendar', 'v3', http=http)
+
+    now = datetime.datetime.utcnow().isoformat() + 'Z' # 'Z' indicates UTC time
+    print('Getting the upcoming 10 events')
+    eventsResult = service.events().list(
+        calendarId='primary', timeMin=now, maxResults=10, singleEvents=True,
+        orderBy='startTime').execute()
+    events = eventsResult.get('items', [])
+
+    if not events:
+        print('No upcoming events found.')
+    for event in events:
+        start = event['start'].get('dateTime', event['start'].get('date'))
+        print(start, event['summary'])
 
 
-# if __name__ == '__main__':
-#     main()
+if __name__ == '__main__':
+    main()
