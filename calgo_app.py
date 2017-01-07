@@ -70,23 +70,23 @@ def webhook():
 
 def handle_event(event, bot_user):
 
-    if 'message' in event and 'text' in event['message']:
-        message = event['message']['text']
-        print('Message: {0}'.format(message))
-        if isinstance(date, bool):
-            set_Date(bot_user, message)
-            send_FB_text(bot_user, "Thank you, now please input your event's time.")
-        elif isinstance(time, bool):
-            set_Time(bot_user, message)
-            time=message
-            send_FB_text(bot_user, "Thank you, now please input your event's location.")
-        elif isinstance(place, bool):
-            set_Location(bot_user, message)
-            place=message
-            # eventCreation()
-            date, time, place = False, False, False
-        elif 'quick_reply' in event['message']:
-            handle_quick_replies(event['message']['quick_reply']['payload'],bot_user)
+    # if 'message' in event and 'text' in event['message']:
+    #     message = event['message']['text']
+    #     print('Message: {0}'.format(message))
+    #     if isinstance(date, bool):
+    #         set_Date(bot_user, message)
+    #         send_FB_text(bot_user, "Thank you, now please input your event's time.")
+    #     elif isinstance(time, bool):
+    #         set_Time(bot_user, message)
+    #         time=message
+    #         send_FB_text(bot_user, "Thank you, now please input your event's location.")
+    #     elif isinstance(place, bool):
+    #         set_Location(bot_user, message)
+    #         place=message
+    #         # eventCreation()
+    #         date, time, place = False, False, False
+    #     elif 'quick_reply' in event['message']:
+    #         handle_quick_replies(event['message']['quick_reply']['payload'],bot_user)
 
 
 
