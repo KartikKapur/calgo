@@ -13,11 +13,11 @@ from googleapiclient.discovery import build
 
 import datetime
 
-# try:
-#     import argparse
-#     flags = argparse.ArgumentParser(parents=[tools.argparser]).parse_args()
-# except ImportError:
-flags = None
+try:
+    import argparse
+    flags = argparse.ArgumentParser(parents=[tools.argparser]).parse_args()
+except ImportError:
+    flags = None
 
 # If modifying these scopes, delete your previously saved credentials
 # at ~/.credentials/calendar-python-quickstart.json
@@ -28,10 +28,8 @@ APPLICATION_NAME = 'Calgo'
 
 def get_credentials():
     """Gets valid user credentials from storage.
-
     If nothing has been stored, or if the stored credentials are invalid,
     the OAuth2 flow is completed to obtain the new credentials.
-
     Returns:
         Credentials, the obtained credential.
     """
@@ -55,10 +53,7 @@ def get_credentials():
         else: # Needed only for compatibility with Python 2.6
             credentials = tools.run(flow, store)
         print('Storing credentials to ' + credential_path)
-    http = httplib2.Http()
-    http = credentials.authorize(http)
-    return discovery.build('calendar', 'v3', http=http)
-    # return credentials
+    return credentials
 
 def main():
     """Shows basic usage of the Google Calendar API.
@@ -84,5 +79,5 @@ def main():
         print(start, event['summary'])
 
 
-# if __name__ == '__main__':
-#     main()
+if __name__ == '__main__':
+    main()

@@ -69,7 +69,7 @@ def webhook():
     return Response()
 
 def handle_event(event, bot_user):
-    nonlocal date, time, place
+
     if 'message' in event and 'text' in event['message']:
         message = event['message']['text']
         print('Message: {0}'.format(message))
