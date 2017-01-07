@@ -23,7 +23,7 @@ MONGO_DB_BEARMAX_PORT = 19816
 
 MONGO_DB_USERNAME = 'calgo'
 MONGO_DB_PASSWORD = 'goingplaces'
-date, time, place,createEvent = False, False, False, False
+
 
 def connect():
     connection = MongoClient(
@@ -36,6 +36,7 @@ def connect():
         MONGO_DB_PASSWORD
     )
     return handle
+
 
 app = Flask(__name__)
 app.config['DEBUG'] = True
@@ -58,69 +59,35 @@ def webhook():
                 sender_id = event['sender']['id']
                 if 'message' in event and 'is_echo' in event['message'] and event['message']['is_echo']:
                     pass
-                elif handle.bot_users.find({'sender_id': sender_id}).count()!=0:
-                    sender_id_matches = [x for x in handle.bot_users.find({'sender_id': sender_id})]
-                    if sender_id_matches:
-                        handle_event(event, sender_id_matches[0])
                 else:
-                    send_FB_text(sender_id, 'Hello, welcome to Calgo, your Google calender on messenger')
+                    send_FB_text(sender_id, 'Hello, welcome to Calgo, you personal calender on messenger')
                     # init_login(sender_id)
                     init_bot_user(sender_id)
+
     return Response()
+                # else:
+                #     sender_id_matches = [x for x in handle.bot_users.find({'sender_id': sender_id})]
+                #     if sender_id_matches:
+                #         bot_user = sender_id_matches[0]
+                #         handle_event(event,bot_user)
+
 
 def handle_event(event, bot_user):
-
     if 'message' in event and 'text' in event['message']:
         message = event['message']['text']
-#     print('Message: {0}'.format(message))
-#     if isinstance(date, bool):
-#         set_Date(bot_user, message)
-#         send_FB_text(bot_user, "Thank you, now please input your event's time.")
-#     elif isinstance(time, bool):
-#         set_Time(bot_user, message)
-#         time=message
-#         send_FB_text(bot_user, "Thank you, now please input your event's location.")
-#     elif isinstance(place, bool):
-#         set_Location(bot_user, message)
-#         place=message
-#         # eventCreation()
-#         date, time, place = False, False, False
-#     elif 'quick_reply' in event['message']:
-#         handle_quick_replies(event['message']['quick_reply']['payload'],bot_user)
-
-
+        print('Message: {0}'.format(message))
+        if message.isdigit():
+            date = int(message)
+        if 'quick_reply' in event['message']:
+            handle_quick_replies(event['message']['quick_reply']['payload'],bot_user)
 
 
 def handle_quick_replies(payload, bot_user):
     print('Payload: {0}'.format(payload))
-    if 'Create' in payload:
-        send_FB_text(bot_user['sender_id'], 'Please enter the event date')
-
-# def eventCreation(date, time, place):
-#
+    # if 'Create' in payload:
 
 
-def set_Date(bot_user, date):
-    handle.bot_users.update({'sender_id': bot_user['sender_id']},
-                            {
-                                '$set':{
-                                    'date': date,
-                                }
-                            })
-def set_Time(bot_user, time):
-    handle.bot_users.update({'sender_id': bot_user['sender_id']},
-                            {
-                                '$set': {
-                                    'time': time,
-                                }
-                            })
-def set_Location(bot_user, place):
-    handle.bot_users.update({'sender_id': bot_user['sender_id']},
-                            {
-                                '$set': {
-                                    'place': place,
-                                }
-                            })
+
 
 def send_FB_text(sender_id, text, quick_replies=None):
     message = {'text': text}
@@ -179,16 +146,17 @@ def init_bot_user(sender_id):
     )
     handle.bot_users.insert({
         'sender_id': sender_id,
-    })
+        })
+
 def send_FB_buttons(sender_id, text, buttons):
     return send_FB_message(
         sender_id,
         {'attachment': {
-            'type': 'template',
-            'payload': {
-                'template_type': 'button',
-                'text': text,
-                'buttons': buttons}}})
+                'type': 'template',
+                'payload': {
+                    'template_type': 'button',
+                    'text': text,
+                    'buttons': buttons}}})
 
 
 if __name__ == '__main__':
